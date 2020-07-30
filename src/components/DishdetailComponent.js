@@ -2,7 +2,6 @@ import React from 'react';
 import { Card, CardImg, CardText, CardTitle } from 'reactstrap';
 
 
-  
     function RenderDish({dish}) {
         if(dish != null) {
           return (                          
