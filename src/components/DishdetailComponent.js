@@ -28,7 +28,8 @@ class Dishdetail extends Component {
                 <li key={comm.id}>    
                 <div className="col-12 col-md-12 m-1">
                     <p>{comm.comment}</p>
-                    <p>--{comm.author},{comm.date}</p>               
+                    <p>--{comm.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comm.date)))} </p>    
+                               
                 </div>
                 </li> 
              );             
