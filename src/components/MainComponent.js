@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar, NavbarBrand } from 'reactstrap';
 import Home from './HomeComponent';
-//import About from './AboutComponent';
+import About from './AboutComponent';
 import Menu from './MenuComponent';
 import Contact from './ContactComponent';
 import Header from './HeaderComponent';
@@ -50,13 +50,13 @@ class Main extends Component {
       );
     };
     
-
     return (
       <div>
         <Header/>
         <Switch>
               <Route path='/home' component={HomePage} />
-            x <Route exact path='/menu' component={() => <Menu dishes={this.state.dishes} />} />
+              <Route exact path='/aboutus' component={() => <About leaders={this.state.leaders} />} />
+              <Route exact path='/menu' component={() => <Menu dishes={this.state.dishes} />} />
               <Route path='/menu/:dishId' component={DishWithId} />
               <Route exact path='/contactus' component={Contact} />
               <Redirect to="/home" />
