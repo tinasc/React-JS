@@ -4,6 +4,7 @@ import { Card, CardImg, CardText, CardBody,
 import { Link } from 'react-router-dom';
 import { LocalForm, Control, Errors } from 'react-redux-form';
 
+
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
@@ -29,9 +30,9 @@ class CommentForm extends Component {
     
     }); 
   } 
-  handleSubmit(values) {   
-    console.log('Current State is: ' + JSON.stringify(values));
-    alert('Current State is: ' + JSON.stringify(values));
+  handleSubmit(values) { 
+    this.toggleModal();  
+    this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
   }
 
   render() {
@@ -52,7 +53,6 @@ class CommentForm extends Component {
                                   <option>3</option>
                                   <option>4</option>
                                   <option>5</option>
-                                  <option>6</option>
                                 </Control.select>
                               </Col>
                             </Row>
@@ -115,7 +115,7 @@ class CommentForm extends Component {
       );
    }
     
-    function RenderComments({comments}) {
+    function RenderComments({comments, addComment, dishId}) {
       if(comments != null) 
       return(
         <div className="col-12 col-md-5 m-1">                 
@@ -130,7 +130,7 @@ class CommentForm extends Component {
                   );        
                 })}
               </ul>
-            <CommentForm /> 
+            <CommentForm dishId={dishId} addComment={addComment} /> 
           </div>    
         ); 
       else 
@@ -158,7 +158,10 @@ class CommentForm extends Component {
                 <RenderDish dish={props.dish} />
             </div>
             <div className="col-12 col-md m-1">
-              <RenderComments comments={props.comments} />
+              <RenderComments comments={props.comments}
+                addComment={props.addComment}
+                dishId={props.dish.id}
+                />
             </div>
           </div>
         </div>
