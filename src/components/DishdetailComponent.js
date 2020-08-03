@@ -3,6 +3,7 @@ import { Card, CardImg, CardText, CardBody,
   CardTitle, Breadcrumb, BreadcrumbItem, Button,  Row, Col, Label, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { LocalForm, Control, Errors } from 'react-redux-form';
+import { Loading } from './LoadingComponent';
 
 
 const required = (val) => val && val.length;
@@ -121,11 +122,11 @@ class CommentForm extends Component {
         <div className="col-12 col-md-5 m-1">                 
           <h4>Comments</h4>
             <ul className="list-unstyled">
-              {comments.map((comm)=> {
+              {comments.map((comment)=> {
                 return(                 
-                  <li key={comm.id}>    
-                    <p>{comm.comment}</p>
-                    <p>--{comm.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comm.date)))} </p>    
+                  <li key={comment.id}>    
+                    <p>{comment.comment}</p>
+                    <p>--{comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))} </p>    
                     </li>              
                   );        
                 })}
@@ -140,11 +141,29 @@ class CommentForm extends Component {
       }
 
       const Dishdetail=(props)=> {
-        if(props.dish != null)
-         return (
-        <div className="container">
-        <div className="row">
-            <Breadcrumb>
+        if (props.isLoading) {
+            return(
+                <div className="container">
+                    <div className="row">            
+                        <Loading />
+                    </div>
+                </div>
+            );
+        }
+        else if (props.errMess) {
+            return(
+                <div className="container">
+                    <div className="row">            
+                        <h4>{props.errMess}</h4>
+                    </div>
+                </div>
+            );
+        }
+        else if (props.dish != null) 
+          return (
+            <div className="container">
+             <div className="row">
+              <Breadcrumb>
                 <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
                 <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
             </Breadcrumb>
