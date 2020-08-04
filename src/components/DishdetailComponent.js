@@ -4,6 +4,7 @@ import { Card, CardImg, CardText, CardBody,
 import { Link } from 'react-router-dom';
 import { LocalForm, Control, Errors } from 'react-redux-form';
 import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
 
 
 const required = (val) => val && val.length;
@@ -20,6 +21,7 @@ class CommentForm extends Component {
     
 
     this.state = {
+      isNavOpen: false,
       isModalOpen:false
     };
     
@@ -32,8 +34,9 @@ class CommentForm extends Component {
     }); 
   } 
   handleSubmit(values) { 
-    this.toggleModal();  
-    this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+    this.toggleModal();   
+    alert(this.props.dishId, values.rating, values.author, values.comment);
+    this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
   }
 
   render() {
@@ -47,7 +50,7 @@ class CommentForm extends Component {
                       <Row className="form-group">
                         <Label htmlFor="rating" md={12}>Rating</Label>                               
                             <Col md={3}>
-                              <Control.select model=".selectType" name="selectType"
+                              <Control.select model=".rating" name="rating" id="rating"
                                 className="form-control">
                                   <option>1</option>
                                   <option>2</option>
@@ -58,10 +61,10 @@ class CommentForm extends Component {
                               </Col>
                             </Row>
                             <Row className="form-group">
-                              <Label htmlFor="yourname" md={12}>Your Name</Label>
+                              <Label htmlFor="author" md={12}>Your Name</Label>
                                 <Col md={10}>
-                                  <Control.text model=".yourname" id="yourname" name="yourname"
-                                     placeholder="Your Name"
+                                  <Control.text model=".author" id="author" name="author"
+                                     placeholder="Author"
                                      className="form-control"
                                      validators={{
                                          required, minLength: minLength(3), maxLength: maxLength(15)
@@ -69,10 +72,10 @@ class CommentForm extends Component {
                                          />
                                     <Errors
                                         className="text-danger"
-                                        model=".yourname"
+                                        model=".author"
                                         show="touched"
                                         messages={{
-                                            required: 'Required',
+                                            required: 'Required ',
                                             minLength: 'Must be greater than 2 characters',
                                             maxLength: 'Must be 15 characters or less'
                                         }}
@@ -80,9 +83,9 @@ class CommentForm extends Component {
                                 </Col>
                             </Row>
                             <Row className="form-group">
-                                <Label htmlFor="message" md={12}>Comment</Label>
+                                <Label htmlFor="comment" md={12}>Comment</Label>
                                 <Col md={10}>
-                                    <Control.textarea model=".message" id="message" name="message"
+                                    <Control.textarea model=".comment" id="comment" name="comment"
                                         rows="6"
                                         className="form-control" />
                                 </Col>
@@ -106,7 +109,7 @@ class CommentForm extends Component {
       return (  
         <div className="col-12 col md-5 m-1">                        
           <Card>                           
-            <CardImg width="100%" src={dish.image} alt={dish.name} />
+            <CardImg top src={baseUrl + dish.image} alt={dish.name} />
             <CardBody/>
               <CardTitle>{dish.name}</CardTitle>
               <CardText>{dish.description}</CardText>      
@@ -116,7 +119,7 @@ class CommentForm extends Component {
       );
    }
     
-    function RenderComments({comments, addComment, dishId}) {
+   function RenderComments({comments, postComment, dishId}) {
       if(comments != null) 
       return(
         <div className="col-12 col-md-5 m-1">                 
@@ -131,7 +134,7 @@ class CommentForm extends Component {
                   );        
                 })}
               </ul>
-            <CommentForm dishId={dishId} addComment={addComment} /> 
+              <CommentForm dishId={dishId} postComment={postComment} />
           </div>    
         ); 
       else 
@@ -178,7 +181,7 @@ class CommentForm extends Component {
             </div>
             <div className="col-12 col-md m-1">
               <RenderComments comments={props.comments}
-                addComment={props.addComment}
+                postComment={props.postcomment}
                 dishId={props.dish.id}
                 />
             </div>
