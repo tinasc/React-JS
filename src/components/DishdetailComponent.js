@@ -35,8 +35,9 @@ class CommentForm extends Component {
     }); 
   } 
   handleSubmit(values) { 
-    this.toggleModal();   
-    alert(this.props.dishId, values.rating, values.author, values.comment);
+    this.toggleModal();  
+    console.log('Thank you for your feedback! ' + JSON.stringify(values));
+        alert('Thank you for your feedback! ' + JSON.stringify(values)); 
     this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
   }
 
@@ -192,7 +193,7 @@ class CommentForm extends Component {
             </div>
             <div className="col-12 col-md m-1">
               <RenderComments comments={props.comments}
-                postComment={props.postcomment}
+                postComment={props.postComment}
                 dishId={props.dish.id}
                 />
             </div>

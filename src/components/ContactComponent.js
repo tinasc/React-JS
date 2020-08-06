@@ -19,10 +19,10 @@ class Contact extends Component {
         
     }
 
-    
     handleSubmit(values) {
-        console.log('Current State is: ' + JSON.stringify(values));
-        alert('Current State is: ' + JSON.stringify(values));
+        console.log('Thank you for your feedback! ' + JSON.stringify(values));
+        alert('Thank you for your feedback! ' + JSON.stringify(values));
+        this.props.postFeedback(values.firstname, values.lastname, values.telnum, values.email, values.agree, values.contactType, values.message);
         this.props.resetFeedbackForm();
         // event.preventDefault();
     }
@@ -63,7 +63,7 @@ class Contact extends Component {
                 <div className="col-12 col-sm-11 offset-sm-1">
                     <div className="btn-group" role="group">
                         <a role="button" className="btn btn-primary" href="tel:+85212345678"><i className="fa fa-phone"></i> Call</a>
-                        <a role="button" className="btn btn-info"><i className="fa fa-skype"></i> Skype</a>
+                        <a role="button" className="btn btn-info" href="skype:YourSkypeName?call"><i className="fa fa-skype"></i> Skype</a>
                         <a role="button" className="btn btn-success" href="mailto:confusion@food.net"><i className="fa fa-envelope-o"></i> Email</a>
                     </div>
                 </div><div className="row row-content">
@@ -191,6 +191,10 @@ class Contact extends Component {
                                 <Col md={{size:10, offset: 2}}>
                                     <Button type="submit" color="primary">
                                     Send Feedback
+                                    </Button>
+                                    {'  '}
+                                    <Button type="reset" outline color="primary">
+                                    Cancel
                                     </Button>
                                 </Col>
                             </Row>
