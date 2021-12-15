@@ -1,3 +1,12 @@
+## Restaurant Web App 
+
+•	Developed the client-side web application with React and Redux.
+
+Environment: React, Redux, JavaScript, Node, Git, Visual Studio Code Editor, CLI.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
